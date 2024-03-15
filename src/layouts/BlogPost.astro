@@ -9,10 +9,11 @@ import LikeCounter, { type Like } from "../components/LikeCounter.astro";
 
 type Props = {
   data: any;
-  like?: Like;
+  num_of_likes: number;
+  slug: string;
 };
 
-const { data, like } = Astro.props;
+const { data, num_of_likes, slug } = Astro.props;
 
 const { title, description, pubDate, updatedDate, heroImage } = data;
 ---
@@ -65,7 +66,7 @@ const { title, description, pubDate, updatedDate, heroImage } = data;
     <Header />
     <main>
       <article>
-        {like && <LikeCounter like={like} />}
+        <LikeCounter num_of_likes={num_of_likes} title={slug} />
         <div class="hero-image">
           {
             heroImage && (

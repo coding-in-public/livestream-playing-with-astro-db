@@ -4,7 +4,6 @@ const Like = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     title: column.text(),
-    likes: column.number(),
   },
 });
 

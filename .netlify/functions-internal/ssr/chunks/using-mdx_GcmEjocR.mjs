@@ -1,5 +1,5 @@
 async function getMod() {
-						return import('./using-mdx_mbhZVW0L.mjs');
+						return import('./using-mdx_B51goZD_.mjs');
 					}
 					const collectedLinks = [];
 					const collectedStyles = ["a[data-astro-cid-eimmu3lg]{display:inline-block;text-decoration:none}a[data-astro-cid-eimmu3lg].active{font-weight:bolder;text-decoration:underline}\n"];

@@ -1,35 +1,31 @@
 ---
-export type Like = {
-  id?: number;
-  title: string;
-  likes: number;
-};
-
 type Props = {
-  like: Like;
+  title: string;
+  num_of_likes: number;
 };
 
-const { like } = Astro.props;
+const { num_of_likes, title } = Astro.props;
 ---
 
 <button
   id="like-btn"
-  data-title={like.title}
+  data-title={title}
   class="like-btn"
   aria-label="Likes for post"
 >
-  <div id="likes-span">{like.likes}</div>
+  <div id="likes-span">{num_of_likes}</div>
   <span>🔥❤️‍🔥</span>
 </button>
 
 <script>
+  import JSConfetti from "js-confetti";
   const likeBtn = document.querySelector("#like-btn") as HTMLButtonElement;
   const likesSpan = document.querySelector("#likes-span") as HTMLButtonElement;
-  const id = likeBtn.dataset.title as string;
+  const title = likeBtn.dataset.title as string;
 
   // decide whether or not it’s disabled on page load
   window.addEventListener("DOMContentLoaded", () => {
-    const isLiked = localStorage.getItem(id);
+    const isLiked = localStorage.getItem(title);
     if (isLiked) {
       likeBtn.disabled = true;
     }
@@ -40,17 +36,22 @@ const { like } = Astro.props;
     likeBtn.disabled = true;
     //@ts-ignore
     likesSpan.textContent = (++likesSpan.textContent).toString();
+
+    const jsconfetti = new JSConfetti();
+    jsconfetti.addConfetti();
     try {
-      const req = await fetch(`/api/${id}.json`, {
+      const req = await fetch("/api/addLike.json", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({
+          title,
+        }),
       });
 
       // save to locale storage for already liked
-      localStorage.setItem(id, "true");
+      localStorage.setItem(title, "true");
     } catch (e) {
       console.error(e);
       alert("Yo…you messed up");

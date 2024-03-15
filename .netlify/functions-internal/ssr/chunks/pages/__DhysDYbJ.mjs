@@ -8,8 +8,8 @@ import { prependForwardSlash } from '@astrojs/internal-helpers/path';
 import { createRemoteDatabaseClient, asDrizzleTable } from '@astrojs/db/runtime';
 import { eq } from '@astrojs/db/dist/runtime/config.js';
 
-const db = await createRemoteDatabaseClient(process.env.ASTRO_STUDIO_APP_TOKEN ?? "4732e9ea6a3f40c178676681f364bcc17f4ef231:twbsugqscxgh0zzrkp5jt6mhk07v", {"BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": true, "SITE": "https://example.com", "ASSETS_PREFIX": undefined}.ASTRO_STUDIO_REMOTE_DB_URL ?? "https://db.services.astro.build");
-const Like = asDrizzleTable("Like", { "columns": { "id": { "type": "number", "schema": { "unique": false, "deprecated": false, "name": "id", "collection": "Like", "primaryKey": true } }, "title": { "type": "text", "schema": { "unique": false, "deprecated": false, "name": "title", "collection": "Like", "primaryKey": false, "optional": false } }, "likes": { "type": "number", "schema": { "unique": false, "deprecated": false, "name": "likes", "collection": "Like", "primaryKey": false, "optional": false } } }, "deprecated": false }, false);
+const db = await createRemoteDatabaseClient(process.env.ASTRO_STUDIO_APP_TOKEN ?? "e074c97d3e0cd61f4cadfb0cf84e5992bc5fd5cc:twbsugqscxgh0zzrkp5jt6mhk07v", {"BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": true, "SITE": "https://example.com", "ASSETS_PREFIX": undefined}.ASTRO_STUDIO_REMOTE_DB_URL ?? "https://db.services.astro.build");
+const Like = asDrizzleTable("Like", { "columns": { "id": { "type": "number", "schema": { "unique": false, "deprecated": false, "name": "id", "collection": "Like", "primaryKey": true } }, "title": { "type": "text", "schema": { "unique": false, "deprecated": false, "name": "title", "collection": "Like", "primaryKey": false, "optional": false } } }, "deprecated": false }, false);
 
 const $$Astro$7 = createAstro("https://example.com");
 const $$BaseHead = createComponent(async ($$result, $$props, $$slots) => {
@@ -277,7 +277,7 @@ const collectionToEntryMap = createCollectionToGlobResultMap({
 });
 
 let lookupMap = {};
-lookupMap = {"blog":{"type":"content","entries":{"second-post":"/src/content/blog/second-post.md","first-post":"/src/content/blog/first-post.md","third-post":"/src/content/blog/third-post.md","markdown-style-guide":"/src/content/blog/markdown-style-guide.md","using-mdx":"/src/content/blog/using-mdx.mdx"}}};
+lookupMap = {"blog":{"type":"content","entries":{"third-post":"/src/content/blog/third-post.md","first-post":"/src/content/blog/first-post.md","second-post":"/src/content/blog/second-post.md","markdown-style-guide":"/src/content/blog/markdown-style-guide.md","using-mdx":"/src/content/blog/using-mdx.mdx"}}};
 
 function createGlobLookup(glob) {
 	return async (collection, lookupId) => {
@@ -288,7 +288,7 @@ function createGlobLookup(glob) {
 	};
 }
 
-const renderEntryGlob = /* #__PURE__ */ Object.assign({"/src/content/blog/first-post.md": () => import('../first-post_BmXV60FM.mjs'),"/src/content/blog/markdown-style-guide.md": () => import('../markdown-style-guide_DhW3IycS.mjs'),"/src/content/blog/second-post.md": () => import('../second-post_ClQOeMA9.mjs'),"/src/content/blog/third-post.md": () => import('../third-post_CBhUbtfz.mjs'),"/src/content/blog/using-mdx.mdx": () => import('../using-mdx_hm1kTEqh.mjs')});
+const renderEntryGlob = /* #__PURE__ */ Object.assign({"/src/content/blog/first-post.md": () => import('../first-post_BmXV60FM.mjs'),"/src/content/blog/markdown-style-guide.md": () => import('../markdown-style-guide_DhW3IycS.mjs'),"/src/content/blog/second-post.md": () => import('../second-post_ClQOeMA9.mjs'),"/src/content/blog/third-post.md": () => import('../third-post_CBhUbtfz.mjs'),"/src/content/blog/using-mdx.mdx": () => import('../using-mdx_GcmEjocR.mjs')});
 const collectionToRenderEntryMap = createCollectionToGlobResultMap({
 	globResult: renderEntryGlob,
 	contentDir,
@@ -321,17 +321,17 @@ const $$Astro$2 = createAstro("https://example.com");
 const $$LikeCounter = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$LikeCounter;
-  const { like } = Astro2.props;
-  return renderTemplate`${maybeRenderHead()}<button id="like-btn"${addAttribute(like.title, "data-title")} class="like-btn" aria-label="Likes for post" data-astro-cid-aze7hv4s> <div id="likes-span" data-astro-cid-aze7hv4s>${like.likes}</div> <span data-astro-cid-aze7hv4s>🔥❤️‍🔥</span> </button>  `;
+  const { num_of_likes, title } = Astro2.props;
+  return renderTemplate`${maybeRenderHead()}<button id="like-btn"${addAttribute(title, "data-title")} class="like-btn" aria-label="Likes for post" data-astro-cid-aze7hv4s> <div id="likes-span" data-astro-cid-aze7hv4s>${num_of_likes}</div> <span data-astro-cid-aze7hv4s>🔥❤️‍🔥</span> </button>  `;
 }, "/Users/chris.pennington/cip/LiveStreams/playing-with-astro-db/src/components/LikeCounter.astro", void 0);
 
 const $$Astro$1 = createAstro("https://example.com");
 const $$BlogPost = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$BlogPost;
-  const { data, like } = Astro2.props;
+  const { data, num_of_likes, slug } = Astro2.props;
   const { title, description, pubDate, updatedDate, heroImage } = data;
-  return renderTemplate`<html lang="en" data-astro-cid-bvzihdzo> <head>${renderComponent($$result, "BaseHead", $$BaseHead, { "title": title, "description": description, "data-astro-cid-bvzihdzo": true })}${renderHead()}</head> <body data-astro-cid-bvzihdzo> ${renderComponent($$result, "Header", $$Header, { "data-astro-cid-bvzihdzo": true })} <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> ${like && renderTemplate`${renderComponent($$result, "LikeCounter", $$LikeCounter, { "like": like, "data-astro-cid-bvzihdzo": true })}`} <div class="hero-image" data-astro-cid-bvzihdzo> ${heroImage && renderTemplate`<img${addAttribute(1020, "width")}${addAttribute(510, "height")}${addAttribute(heroImage, "src")} alt="" data-astro-cid-bvzihdzo>`} </div> <div class="prose" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <div class="date" data-astro-cid-bvzihdzo> ${renderComponent($$result, "FormattedDate", $$FormattedDate, { "date": pubDate, "data-astro-cid-bvzihdzo": true })} ${updatedDate && renderTemplate`<div class="last-updated-on" data-astro-cid-bvzihdzo>
+  return renderTemplate`<html lang="en" data-astro-cid-bvzihdzo> <head>${renderComponent($$result, "BaseHead", $$BaseHead, { "title": title, "description": description, "data-astro-cid-bvzihdzo": true })}${renderHead()}</head> <body data-astro-cid-bvzihdzo> ${renderComponent($$result, "Header", $$Header, { "data-astro-cid-bvzihdzo": true })} <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> ${renderComponent($$result, "LikeCounter", $$LikeCounter, { "num_of_likes": num_of_likes, "title": slug, "data-astro-cid-bvzihdzo": true })} <div class="hero-image" data-astro-cid-bvzihdzo> ${heroImage && renderTemplate`<img${addAttribute(1020, "width")}${addAttribute(510, "height")}${addAttribute(heroImage, "src")} alt="" data-astro-cid-bvzihdzo>`} </div> <div class="prose" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <div class="date" data-astro-cid-bvzihdzo> ${renderComponent($$result, "FormattedDate", $$FormattedDate, { "date": pubDate, "data-astro-cid-bvzihdzo": true })} ${updatedDate && renderTemplate`<div class="last-updated-on" data-astro-cid-bvzihdzo>
 Last updated on ${renderComponent($$result, "FormattedDate", $$FormattedDate, { "date": updatedDate, "data-astro-cid-bvzihdzo": true })} </div>`} </div> <h1 data-astro-cid-bvzihdzo>${title}</h1> <hr data-astro-cid-bvzihdzo> </div> ${renderSlot($$result, $$slots["default"])} </div> </article> </main> ${renderComponent($$result, "Footer", $$Footer, { "data-astro-cid-bvzihdzo": true })} </body></html>`;
 }, "/Users/chris.pennington/cip/LiveStreams/playing-with-astro-db/src/layouts/BlogPost.astro", void 0);
 
@@ -350,15 +350,7 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   }
   const { Content } = await post.render();
   let likes = await db.select().from(Like).where(eq(Like.title, slug));
-  if (likes.length === 0) {
-    likes = [
-      {
-        title: slug,
-        likes: 0
-      }
-    ];
-  }
-  return renderTemplate`${renderComponent($$result, "BlogPost", $$BlogPost, { "data": post.data, "like": likes[0] }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Content", Content, {})} ` })}`;
+  return renderTemplate`${renderComponent($$result, "BlogPost", $$BlogPost, { "data": post.data, "num_of_likes": likes.length, "slug": slug }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Content", Content, {})} ` })}`;
 }, "/Users/chris.pennington/cip/LiveStreams/playing-with-astro-db/src/pages/blog/[...slug].astro", void 0);
 
 const $$file = "/Users/chris.pennington/cip/LiveStreams/playing-with-astro-db/src/pages/blog/[...slug].astro";

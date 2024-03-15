@@ -21,17 +21,8 @@ if (!post) {
 const { Content } = await post.render();
 
 let likes = await db.select().from(Like).where(eq(Like.title, slug));
-
-if (likes.length === 0) {
-  likes = [
-    {
-      title: slug,
-      likes: 0,
-    },
-  ];
-}
 ---
 
-<BlogPost data={post.data} like={likes[0]}>
+<BlogPost data={post.data} num_of_likes={likes.length} slug={slug}>
   <Content />
 </BlogPost>
