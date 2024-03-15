@@ -8,8 +8,8 @@ import { number } from "astro/zod";
 import LikeCounter, { type Like } from "../components/LikeCounter.astro";
 
 type Props = {
-  data: CollectionEntry<"blog">["data"];
-  like: Like;
+  data: any;
+  like?: Like;
 };
 
 const { data, like } = Astro.props;
@@ -65,7 +65,7 @@ const { title, description, pubDate, updatedDate, heroImage } = data;
     <Header />
     <main>
       <article>
-        <LikeCounter like={like} />
+        {like && <LikeCounter like={like} />}
         <div class="hero-image">
           {
             heroImage && (
