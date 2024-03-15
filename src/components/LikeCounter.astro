@@ -36,6 +36,9 @@ const { like } = Astro.props;
 
   // if clicked, increment
   likeBtn.addEventListener("click", async () => {
+    likeBtn.disabled = true;
+    //@ts-ignore
+    likesSpan.textContent = (++likesSpan.textContent).toString();
     try {
       const req = await fetch(`/api/${id}.json`, {
         method: "POST",
@@ -45,12 +48,8 @@ const { like } = Astro.props;
         body: JSON.stringify({}),
       });
 
-      //@ts-ignore
-      likesSpan.textContent = (++likesSpan.textContent).toString();
-
       // save to locale storage for already liked
       localStorage.setItem(id, "true");
-      likeBtn.disabled = true;
     } catch (e) {
       console.error(e);
       alert("Yo…you messed up");
