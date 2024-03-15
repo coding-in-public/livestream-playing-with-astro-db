@@ -20,7 +20,7 @@ if (!post) {
 
 const { Content } = await post.render();
 
-let likes = await db.select().from(Like).where(eq(Like.id, slug));
+let likes = await db.select().from(Like).where(eq(Like.title, slug));
 
 if (likes.length === 0) {
   likes = [
