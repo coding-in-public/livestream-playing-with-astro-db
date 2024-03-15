@@ -25,7 +25,7 @@ let likes = await db.select().from(Like).where(eq(Like.id, slug));
 if (likes.length === 0) {
   likes = [
     {
-      id: slug,
+      title: slug,
       likes: 0,
     },
   ];

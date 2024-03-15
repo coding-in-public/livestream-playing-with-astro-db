@@ -2,7 +2,8 @@ import { column, defineDb, defineTable } from "astro:db";
 
 const Like = defineTable({
   columns: {
-    id: column.text(),
+    id: column.number({ primaryKey: true }),
+    title: column.text(),
     likes: column.number(),
   },
 });

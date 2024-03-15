@@ -1,6 +1,7 @@
 ---
 export type Like = {
-  id: string;
+  id: number;
+  title: string;
   likes: number;
 };
 
@@ -13,7 +14,7 @@ const { like } = Astro.props;
 
 <button
   id="like-btn"
-  data-id={like.id}
+  data-title={like.title}
   class="like-btn"
   aria-label="Likes for post"
 >
@@ -24,7 +25,7 @@ const { like } = Astro.props;
 <script>
   const likeBtn = document.querySelector("#like-btn") as HTMLButtonElement;
   const likesSpan = document.querySelector("#likes-span") as HTMLButtonElement;
-  const id = likeBtn.dataset.id as string;
+  const id = likeBtn.dataset.title as string;
 
   // decide whether or not it’s disabled on page load
   window.addEventListener("DOMContentLoaded", () => {

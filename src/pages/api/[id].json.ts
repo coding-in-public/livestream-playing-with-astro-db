@@ -15,11 +15,11 @@ export const POST: APIRoute = async ({ params, request }) => {
   const req = await db
     .update(Like)
     .set({ likes: sql`${Like.likes} + 1` })
-    .where(eq(Like.id, id));
+    .where(eq(Like.title, id));
 
   if (!req.rowsAffected) {
     await db.insert(Like).values({
-      id,
+      title: id,
       likes: 1,
     });
   }
