@@ -1,0 +1,83 @@
+---
+export type Like = {
+  id: string;
+  likes: number;
+};
+
+type Props = {
+  like: Like;
+};
+
+const { like } = Astro.props;
+---
+
+<button
+  id="like-btn"
+  data-id={like.id}
+  class="like-btn"
+  aria-label="Likes for post"
+>
+  <div id="likes-span">{like.likes}</div>
+  <span>🔥❤️‍🔥</span>
+</button>
+
+<script>
+  const likeBtn = document.querySelector("#like-btn") as HTMLButtonElement;
+  const likesSpan = document.querySelector("#likes-span") as HTMLButtonElement;
+  const id = likeBtn.dataset.id as string;
+
+  // decide whether or not it’s disabled on page load
+  window.addEventListener("DOMContentLoaded", () => {
+    const isLiked = localStorage.getItem(id);
+    if (isLiked) {
+      likeBtn.disabled = true;
+    }
+  });
+
+  // if clicked, increment
+  likeBtn.addEventListener("click", async () => {
+    try {
+      const req = await fetch(`/api/${id}.json`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      //@ts-ignore
+      likesSpan.textContent = (++likesSpan.textContent).toString();
+
+      // save to locale storage for already liked
+      localStorage.setItem(id, "true");
+      likeBtn.disabled = true;
+    } catch (e) {
+      console.error(e);
+      alert("Yo…you messed up");
+    }
+  });
+</script>
+
+<style>
+  .like-btn {
+    font-size: 1.5rem;
+    display: flex;
+    gap: 0.4rem;
+    cursor: pointer;
+    margin-inline: auto;
+    margin-block-end: 1rem;
+    border: none;
+    background-color: rgb(var(--gray));
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.2rem;
+    filter: grayscale(100%);
+    &:hover {
+      filter: grayscale(20%);
+    }
+  }
+  .like-btn[disabled] {
+    filter: grayscale(0%);
+    cursor: auto;
+  }
+</style>
